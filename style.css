@@ -1,0 +1,55 @@
+.clock_extension{
+    position:fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+    font-size: 32px;
+}
+
+.button_extension{
+    position:fixed;
+    top: 54px;
+    left: 20px;
+    z-index: 10001;
+    /* font-size: 24px; */
+    /* border: 0;
+    border-radius: 0; */
+    /* background: #ffffff;
+    font-size: 18px;
+    color: #000000;
+    text-align: center;
+    color: #fff; */
+    /* text-shadow: 1px 1px 1px #000; */
+    border-radius: 8px;
+    background-color: rgb(31, 184, 255);
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    /* box-shadow:
+      inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+      inset -2px -2px 3px rgba(0, 0, 0, 0.6); */
+}
+.file_extension{
+    position:fixed;
+    top: 84px;
+    left: 20px;
+    z-index: 10001;
+}
+.hide{
+    display: none;
+}
+
+.table_extension{
+    position:fixed;
+    top: 114px;
+    left: 20px;
+    z-index: 10001;
+    border-collapse: collapse;
+    width: 300px;
+    color: black;
+    background-color: aliceblue;
+}
+
+.table_extension td{
+    border: 1px solid black;
+    padding: 8px; /* Отступы внутри ячеек */
+    border: 1px solid #888; /* Границы ячеек */
+}

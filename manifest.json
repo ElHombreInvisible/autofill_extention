@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "ЕИАС Помощник",
+    "version": "0.1",
+    "description": "Тестовое расширение",
+    "permissions": ["tabs", "activeTab", "storage"],
+    "content_scripts": [
+        {
+        //   "matches": ["*://google.com/*"],
+        "matches": ["<all_urls>"],
+          "js": ["contentScript.js"],
+          "css": ["style.css"]
+        }
+      ],
+    "run_at": "document_end",
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
