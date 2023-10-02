@@ -1,0 +1,14 @@
+{
+    "DEBUG": true,
+    "presets":{
+    "physical":{
+    "name": "Физфакторы",
+    "address": "Адрес1"
+    },
+    "biological":
+    {
+    "name": "Биология",
+    "address": "Адрес2"
+    }
+    }
+}

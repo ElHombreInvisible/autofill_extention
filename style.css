@@ -8,28 +8,16 @@
 
 .button_extension{
     position:fixed;
-    top: 54px;
+    top: 30px;
     left: 20px;
     z-index: 10001;
-    /* font-size: 24px; */
-    /* border: 0;
-    border-radius: 0; */
-    /* background: #ffffff;
-    font-size: 18px;
-    color: #000000;
-    text-align: center;
-    color: #fff; */
-    /* text-shadow: 1px 1px 1px #000; */
     border-radius: 8px;
     background-color: rgb(31, 184, 255);
     background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
-    /* box-shadow:
-      inset 2px 2px 3px rgba(255, 255, 255, 0.6),
-      inset -2px -2px 3px rgba(0, 0, 0, 0.6); */
 }
 .file_extension{
     position:fixed;
-    top: 84px;
+    top: 30px;
     left: 20px;
     z-index: 10001;
 }
@@ -39,7 +27,7 @@
 
 .table_extension{
     position:fixed;
-    top: 114px;
+    top: 60px;
     left: 20px;
     z-index: 10001;
     border-collapse: collapse;
@@ -52,4 +40,87 @@
     border: 1px solid black;
     padding: 8px; /* Отступы внутри ячеек */
     border: 1px solid #888; /* Границы ячеек */
+}
+
+.debug-container {
+    /* position: relative;
+    width: 300px;
+    left: 20px;
+    z-index: 10001; */
+    position: fixed;
+    bottom: 0;
+    width: 300px;
+    left: 20px;
+    z-index: 10001;
+}
+
+.debug_table {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    z-index: 10001;
+    border-collapse: collapse;
+    width: 300px;
+    color: black;
+    background-color: aliceblue;
+    max-height: calc(100vh - 20px);
+    overflow-y: auto; 
+}
+.debug_table td{
+    border: 1px solid black;
+    padding: 8px; /* Отступы внутри ячеек */
+    /* border: 1px solid #888; */
+}
+.debug_table.hidden {
+    display: none;
+}
+
+
+/* .debug-arrow-button {
+    position: fixed;
+    bottom: 0;
+    left: 20px;
+    width: 25px;              
+    height: 25px;
+    background-color: #f4f4f4;
+    border: none;
+    cursor: pointer; 
+    outline: none;
+    position: relative;
+} */
+
+
+.debug-arrow-button {
+    position: absolute;
+    bottom: 0; /* прикрепить к низу контейнера */
+    left: 20px;   /* выровнять по левому краю контейнера */
+    width: 25px;
+    height: 25px;
+    background-color: #f4f4f4;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.debug-arrow-up::before,
+.debug-arrow-down::before {
+    content: '';               /* Пустой контент */
+    position: absolute;      /* Абсолютное позиционирование */
+    left: 50%;        /* Центрирование по горизонтали */
+    top: 40%;                 
+    transform: translateX(-50%); /* Центрирование по горизонтали */
+    width: 0;
+    height: 0;               /* Высота 0 для создания треугольника */
+    border: 8px solid transparent;/* Создание прозрачных границ для треугольника */
+    z-index: 10002;
+}
+
+.debug-arrow-up::before {
+    top: 6px;                  /* Положение стрелки вверх */
+    border-bottom-color: #333; /* Цвет стрелки вверх */
+}
+
+.debug-arrow-down::before {
+    bottom: 6px;               /* Положение стрелки вниз */
+    border-top-color: #333;    /* Цвет стрелки вниз */
 }
