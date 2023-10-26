@@ -3,19 +3,25 @@
     "name": "ЕИАС Помощник",
     "version": "0.1",
     "description": "Тестовое расширение",
-    "permissions": ["tabs", "activeTab", "storage"],
+    "permissions": ["tabs", "activeTab", "storage", "https://www.google.com/*"],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  },
     "content_scripts": [
         {
         //   "matches": ["*://google.com/*"],
         "matches": ["<all_urls>"],
-          "js": ["contentScript.js"],
-          "css": ["style.css"]
+        // "js": ["main.js"],
+        "js": ["dist/bundle.js"],
+          // "js": ["./package/xlsx.js", "contentScript.js"],
+          "css": ["style.css"],
+          "type": "module"
         }
       ],
     "run_at": "document_end",
     "web_accessible_resources": [
       {
-        "resources": ["settings.json"],
+        "resources": ["settings.json", "package/xlsx.js"],
         "matches": ["<all_urls>"]
       }
     ],

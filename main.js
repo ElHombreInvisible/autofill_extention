@@ -1,4 +1,12 @@
-// import * as XLSX from './package/xlsx.js';
+import * as XLSX from 'xlsx';
+import { findElementByText } from './utils';
+import set_applicant_promised from './func_applicant';
+import set_controlled_person from './func_controlled_person';
+import set_department_author from './func_department_author';
+import set_footing from './func_footing';
+import set_research_purpose from './func_researh_purpose';
+
+let globalFileContent;
 let DEBUG = true
 let current_preset = {}
 const pathToFile = chrome.runtime.getURL('settings.json');
@@ -21,14 +29,55 @@ button.addEventListener('click', function() {
     // alert('Кнопка была нажата!');
     document.getElementById('fileInput').click();
 });
-let globalFileContent; 
+
+async function executeFunctionsSequentially(functions) {
+    for (let func of functions) {
+        try {
+            await func();
+            console.log("Функция успешно выполнена");
+        } catch (error) {
+            console.error("Произошла ошибка:", error);
+        }
+    }
+}
+
+
+// let applicant =  'Лобненский территориальный отдел Управления Федеральной службы по надзору в сфере защиты прав потребителей и благополучия человека по Московской области';
+// let INN = "5032034080"
+// let departments = ['Отделение по контролю за ионизирующими и неионизирующими источниками излучений Дедовск', 'ООКПиВР Дедовск'];
+// let footings = ['Заявка', 'Приказ РПН'];
+// const research_sequence = ["Бюджет", "КНД", "Профилактический визит"];
+// const functionsArray = [
+//     () => set_applicant_promised(applicant),
+//     () => set_controlled_person(INN),
+//     () => set_department_author(departments[0]),
+//     () => set_footing(footings[0]),
+//     () => set_research_purpose(research_sequence)
+// ];
+// executeFunctionsSequentially(functionsArray);
+
 
 function processWorkbook(workbook) {
-    const sheetName = workbook.SheetNames[0]; // Название первого листа
-    const sheet = workbook.Sheets[sheetName];
-    const data = module.utils.sheet_to_json(sheet); // Конвертирует данные листа в массив объектов JSON
-
-    console.log(data); // Выводит содержимое Excel файла
+    const sheetName = workbook.SheetNames[0];
+    let sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header: 1});
+    let dict = {};
+    for (let i = 0; i < sheet.length; i++) {
+        let key = sheet[i][0];
+        let value = sheet[i][1];
+        dict[key] = value;
+    }
+    console.log(dict);
+    const table = document.getElementsByClassName('table_extension')[0]
+    while(table.rows.length > 0) {
+        table.deleteRow(0);
+    }
+    for (let key in dict) {
+    let newRow = table.insertRow();
+    let cell1 = newRow.insertCell(0);
+    let cell2 = newRow.insertCell(1);
+    cell1.textContent = key;
+    cell2.textContent = dict[key];
+    }
 }
 
 file.addEventListener('change', function(event) {
@@ -37,10 +86,10 @@ file.addEventListener('change', function(event) {
     const reader = new FileReader();
     reader.onload = function(event) {
         const data = new Uint8Array(event.target.result);
-        const workbook = module.read(data, { type: 'array' });
+        const workbook = XLSX.read(data, { type: 'array' });
         processWorkbook(workbook);
     };
-    reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(selectedFile);
     // reader.onload = function(fileEvent) {
     //     const fileContent = fileEvent.target.result;
     //     globalFileContent = fileContent;
@@ -58,7 +107,7 @@ file.addEventListener('change', function(event) {
     //     cell2.textContent = kwargs[key];
     //     }
     // };
-    reader.readAsText(selectedFile);
+    // reader.readAsText(selectedFile);
 });
 file.type = 'file'
 file.id = 'fileInput'
